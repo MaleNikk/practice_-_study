@@ -7,12 +7,15 @@ import ru.skillbox.currency.exchange.dto.CurrencyDto;
 import ru.skillbox.currency.exchange.entity.Currency;
 import ru.skillbox.currency.exchange.mapper.CurrencyMapper;
 import ru.skillbox.currency.exchange.repository.CurrencyRepository;
+import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CurrencyService {
+
     private final CurrencyMapper mapper;
+
     private final CurrencyRepository repository;
 
     public CurrencyDto getById(Long id) {
@@ -30,5 +33,10 @@ public class CurrencyService {
     public CurrencyDto create(CurrencyDto dto) {
         log.info("CurrencyService method create executed");
         return  mapper.convertToDto(repository.save(mapper.convertToEntity(dto)));
+    }
+
+    public List<CurrencyDto> getAll(){
+        log.info("CurrencyService method getAll executed");
+        return repository.findAll().stream().map(mapper::convertToDto).toList();
     }
 }

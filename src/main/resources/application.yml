@@ -16,8 +16,12 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL95Dialect
         show_sql: true
         hbm2ddl:
           auto: none
 
+app:
+  update:
+    url: https://cbr.ru/scripts/XML_daily.asp
+    time: 3600000
+    enable: true
