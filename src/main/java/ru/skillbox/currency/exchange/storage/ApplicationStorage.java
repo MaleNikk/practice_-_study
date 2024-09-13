@@ -1,11 +1,10 @@
-package ru.skillbox.currency.exchange.service;
+package ru.skillbox.currency.exchange.storage;
 
 import ru.skillbox.currency.exchange.dto.CurrencyDto;
 
 import java.util.List;
 
-
-public interface ApplicationService {
+public interface ApplicationStorage {
 
     CurrencyDto getById(Long id);
 
@@ -17,6 +16,5 @@ public interface ApplicationService {
 
     void updateCurrency(CurrencyDto dto);
 
-    void refreshData();
-
+    void updateCurrenciesInDb();
 }

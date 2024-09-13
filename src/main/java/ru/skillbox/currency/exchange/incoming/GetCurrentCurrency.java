@@ -1,4 +1,4 @@
-package ru.skillbox.currency.exchange.refresh.application;
+package ru.skillbox.currency.exchange.incoming;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 @Component
 @Slf4j
-public class LoadCurrentCurrency {
+public class GetCurrentCurrency implements GetNewValueCurrencies{
 
     @Value("${app.update.url}")
     private String url;
@@ -76,9 +76,9 @@ public class LoadCurrentCurrency {
             URL https = new URL(url);
             Scanner scanner = new Scanner(https.openConnection().getInputStream());
             while (scanner.hasNext()) {
-                String check = scanner.next();
-                if (check.contains("Name")) {
-                    builder.append(check);
+                String incomeData = scanner.next();
+                if (incomeData.contains("Name")) {
+                    builder.append(incomeData);
                 }
             }
         } catch (IOException exception) {

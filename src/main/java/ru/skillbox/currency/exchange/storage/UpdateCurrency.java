@@ -1,4 +1,4 @@
-package ru.skillbox.currency.exchange.refresh.application;
+package ru.skillbox.currency.exchange.storage;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.skillbox.currency.exchange.service.ApplicationService;
 
 import static java.lang.Thread.sleep;
 
-@Component
+@Service
 @Scope("singleton")
 @Slf4j
-public class ThreadUpdateCurrency implements Runnable {
+public class UpdateCurrency implements Runnable {
 
     @Value("${app.update.time}")
     private Long timeUpdate;
@@ -28,6 +28,7 @@ public class ThreadUpdateCurrency implements Runnable {
     @Override
     public void run() {
         Thread thread = new Thread(this);
+        thread.start();
     }
 
     @EventListener(ApplicationStartedEvent.class)
@@ -40,11 +41,11 @@ public class ThreadUpdateCurrency implements Runnable {
                     sleep(timeUpdate);
                 } else {
                     log.info("Auto update d't enable!\n");
-                    sleep(timeUpdate);
                 }
             } while (Thread.currentThread().isAlive());
         } catch (InterruptedException exception) {
-            throw new RuntimeException(exception);
+            log.info("We caught exception, please check your internet connection! ");
+            this.run();
         }
     }
 }

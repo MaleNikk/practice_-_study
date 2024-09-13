@@ -2,41 +2,49 @@ package ru.skillbox.currency.exchange.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.skillbox.currency.exchange.dto.CurrencyDto;
-import ru.skillbox.currency.exchange.entity.Currency;
-import ru.skillbox.currency.exchange.mapper.CurrencyMapper;
-import ru.skillbox.currency.exchange.repository.CurrencyRepository;
+import ru.skillbox.currency.exchange.storage.ApplicationStorage;
+
 import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CurrencyService {
+public class CurrencyService implements ApplicationService{
 
-    private final CurrencyMapper mapper;
-
-    private final CurrencyRepository repository;
+    @Autowired
+    private final ApplicationStorage storage;
 
     public CurrencyDto getById(Long id) {
         log.info("CurrencyService method getById executed");
-        Currency currency = repository.findById(id).orElseThrow(() -> new RuntimeException("Currency not found with id: " + id));
-        return mapper.convertToDto(currency);
+        return storage.getById(id);
     }
 
     public Double convertValue(Long value, Long numCode) {
         log.info("CurrencyService method convertValue executed");
-        Currency currency = repository.findByIsoNumCode(numCode);
-        return value * currency.getValue();
+        return storage.convertValue(value,numCode);
     }
 
     public CurrencyDto create(CurrencyDto dto) {
         log.info("CurrencyService method create executed");
-        return  mapper.convertToDto(repository.save(mapper.convertToEntity(dto)));
+        return  storage.create(dto);
     }
 
     public List<CurrencyDto> getAll(){
         log.info("CurrencyService method getAll executed");
-        return repository.findAll().stream().map(mapper::convertToDto).toList();
+        return storage.getAll();
+    }
+
+    @Override
+    public void updateCurrency(CurrencyDto dto) {
+        log.info("Update currency on database initial(DatabaseUpdate.class) at time: {}", System.currentTimeMillis());
+        storage.updateCurrency(dto);
+    }
+
+    public void refreshData() {
+        log.info("\nInitial update database at time: {}\n", System.currentTimeMillis());
+        storage.updateCurrenciesInDb();
     }
 }
