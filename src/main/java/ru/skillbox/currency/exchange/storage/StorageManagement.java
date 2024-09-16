@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.skillbox.currency.exchange.dto.CurrencyDto;
 import ru.skillbox.currency.exchange.entity.Currency;
-import ru.skillbox.currency.exchange.incoming.GetNewValueCurrencies;
+import ru.skillbox.currency.exchange.incoming.UpdaterCurrencies;
 import ru.skillbox.currency.exchange.mapper.CurrencyMapper;
 import ru.skillbox.currency.exchange.repository.CurrencyRepository;
 import java.util.HashSet;
@@ -26,7 +26,7 @@ public class StorageManagement implements ApplicationStorage {
     private final JdbcTemplate template;
 
     @Autowired
-    private final GetNewValueCurrencies currentCurrency;
+    private final UpdaterCurrencies currentCurrency;
 
     @Autowired
     private final CurrencyRepository repository;

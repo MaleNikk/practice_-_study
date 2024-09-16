@@ -4,7 +4,7 @@ import ru.skillbox.currency.exchange.dto.CurrencyDto;
 
 import java.util.List;
 
-public interface GetNewValueCurrencies {
+public interface UpdaterCurrencies {
 
     List<CurrencyDto> updatedCurrency();
 }

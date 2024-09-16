@@ -25,5 +25,4 @@ spring:
 app:
   update:
     url: https://cbr.ru/scripts/XML_daily.asp
-    time: 3600000
     enable: true

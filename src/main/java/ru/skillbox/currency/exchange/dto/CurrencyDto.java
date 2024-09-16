@@ -1,36 +1,36 @@
 package ru.skillbox.currency.exchange.dto;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.*;
-
-import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-@XmlType(name = "Valute")
-@XmlRootElement
-public class CurrencyDto {
+@JacksonXmlRootElement(localName = "Valute")
+public class CurrencyDto implements Serializable{
 
     private Long id;
 
-    @XmlAttribute(name = "ID")
+    @JacksonXmlProperty(localName = "ID", isAttribute = true)
     private String valuteId;
 
-    @XmlElement(name = "NumCode")
+    @JacksonXmlProperty(localName = "NumCode")
     private Long isoNumCode;
 
-    @XmlElement(name = "CharCode")
+    @JacksonXmlProperty(localName = "CharCode")
     private String isoCharCode;
 
-    @XmlElement(name = "Nominal")
+    @JacksonXmlProperty(localName = "Nominal")
     private Long nominal;
 
-    @XmlElement(name = "Name")
+    @JacksonXmlProperty(localName = "Name")
     private String name;
 
-    @XmlElement(name = "Value")
+    @JacksonXmlProperty(localName = "Value")
     private Double value;
 
-    @XmlElement(name = "VunitRate")
+    @JacksonXmlProperty(localName = "VunitRate")
     private Double VUnitRate;
 
 }
