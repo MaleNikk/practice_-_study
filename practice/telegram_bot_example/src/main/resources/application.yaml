@@ -1,0 +1,22 @@
+spring:
+  server:
+    port: "8183"
+  data:
+    mongodb:
+      uri: 'mongodb://test:test@localhost:27017/subscribe?authSource=admin'
+
+#данные подключения к телеграм боту
+telegram:
+  connection:
+    username: "${BOT_NAME}"    #"TestSpringBitcoin_Bot"
+    token: "${BOT_TOKEN}"    #"7738455049:AAHePxx9rmuELPLrU-4DBV0pXklnquiLygY"
+
+#путь к источнику обновления стоимости криптовалюты
+binance:
+  api:
+    getPrice: "https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT"
+
+#параметр времени обновления в миллисекундах
+time:
+  upload:
+    fixed: "30000"
